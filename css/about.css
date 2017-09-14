@@ -121,8 +121,3 @@ nav a:hover::before {
     background-attachment: scroll;
   }
 }
-
-.map {
-  height:500px;
-  width: 50px;
-}
