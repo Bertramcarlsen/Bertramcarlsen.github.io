@@ -1,13 +1,42 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Music player</title>
+  <title>Music</title>
 </head>
 <body>
-    <!-- SCM Music Player http://scmplayer.co -->
-<script type="text/javascript" src="http://scmplayer.co/script.js" 
-data-config="{'skin':'http://static.tumblr.com/d41lcii/dptmkhjd2/chanel.css','volume':50,'autoplay':true,'shuffle':false,'repeat':1,'placement':'bottom','showplaylist':false,'playlist':[{'title':'Childish Gambino - This is America','url':'https://www.youtube.com/watch?v=VYOjWnS4cMY'},{'title':'XXXTentacion %22Slipknot%22 Feat. Kin$oul & Killstation','url':'https://www.youtube.com/watch?v=BrDxS8yG8OE'},{'title':'XXXTENTACION - SAD! XXXTentacion','url':'https://www.youtube.com/watch?v=FAucVNRx_mU'},{'title':'XXXTENTACION - Everybody Dies In Their Nightmares','url':'https://www.youtube.com/watch?v=7JGDWKJfgxQ'}]}" ></script>
-<!-- SCM Music Player script end -->
+  <h1>Spotify Web Playback SDK Quick Start Tutorial</h1>
+  <h2>Open your console log: <code>View > Developer > JavaScript Console</code></h2>
+
+  <script src="https://sdk.scdn.co/spotify-player.js"></script>
+  window.onSpotifyWebPlaybackSDKReady = () => {
+  const token = 'BQAeSGMLZwWKLaV1iPv1JxMzVd_kLBXiBlMJR4D1v7HQVf4hiJsf9_g_IxwocY6FWj1P29u-Z3zjZpf5qd_fnIiMrUfmnNuY9OeGX4eRT0ztpnoOeUmadUV67tM2KCQucQU_o0chkUkZ9N0t9cXjIi1c2fuqMW1K';
+  const player = new Spotify.Player({
+    name: 'Web Playback SDK Quick Start Player',
+    getOAuthToken: cb => { cb(token); }
+  });
+
+  // Error handling
+  player.addListener('initialization_error', ({ message }) => { console.error(message); });
+  player.addListener('authentication_error', ({ message }) => { console.error(message); });
+  player.addListener('account_error', ({ message }) => { console.error(message); });
+  player.addListener('playback_error', ({ message }) => { console.error(message); });
+
+  // Playback status updates
+  player.addListener('player_state_changed', state => { console.log(state); });
+
+  // Ready
+  player.addListener('ready', ({ device_id }) => {
+    console.log('Ready with Device ID', device_id);
+  });
+
+  // Not Ready
+  player.addListener('not_ready', ({ device_id }) => {
+    console.log('Device ID has gone offline', device_id);
+  });
+
+  // Connect to the player!
+  player.connect();
+};
 </body>
 </html>
